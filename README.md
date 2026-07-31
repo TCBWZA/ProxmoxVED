@@ -44,4 +44,5 @@ ProxmoxVED/
 You can install Hermes Dev directly from this repository using:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/TCBWZA/ProxmoxVED/ct/hermes-dev.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/TCBWZA/ProxmoxVED/main/ct/hermes-dev.sh)"
+```
