@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------
+# Basic output helpers
+# ------------------------------------------------------------
+
+header_info() {
+  clear
+  echo "------------------------------------------------------------"
+  echo "$1"
+  echo "------------------------------------------------------------"
+}
+
+msg_info() {
+  echo "[INFO] $1"
+}
+
+msg_ok() {
+  echo "[OK]   $1"
+}
+
+msg_error() {
+  echo "[ERROR] $1"
+}
+
+# ------------------------------------------------------------
+# Variable loader
+# ------------------------------------------------------------
+
+variables() {
+  # These variables may be overridden by the ct script
+  var_cpu="${var_cpu:-2}"
+  var_ram="${var_ram:-2048}"
+  var_disk="${var_disk:-8}"
+  var_os="${var_os:-debian}"
+  var_version="${var_version:-12}"
+  var_unprivileged="${var_unprivileged:-1}"
+  var_tags="${var_tags:-app}"
+}
+
+# ------------------------------------------------------------
+# Error handling
+# ------------------------------------------------------------
+
+catch_errors() {
+  set -o errexit
+  set -o pipefail
+}
+
+# ------------------------------------------------------------
+# Container builder
+# ------------------------------------------------------------
+
+start() {
+  msg_info "Starting container build"
+}
+
+build_container() {
+  msg_info "Creating LXC container"
+
+  CTID=$(pvesh get /cluster/nextid)
+
+  pct create "$CTID" \
+    "local:vztmpl/${var_os}-${var_version}-amd64.tar.zst" \
+    --cores "$var_cpu" \
+    --memory "$var_ram" \
+    --rootfs "local-lvm:${var_disk}" \
+    --unprivileged "$var_unprivileged" \
+    --features nesting=1 \
+    --hostname "hermes-dev" \
+    --tags "$var_tags"
+
+  msg_info "Starting container $CTID"
+  pct start "$CTID"
+
+  # Wait for container to boot
+  sleep 5
+
+  msg_ok "Container $CTID created and running"
+}
+
+# ------------------------------------------------------------
+# Description block
+# ------------------------------------------------------------
+
+description() {
+  echo
+  echo "------------------------------------------------------------"
+  echo "Container ID: $CTID"
+  echo "CPU:          $var_cpu"
+  echo "RAM:          $var_ram MB"
+  echo "Disk:         $var_disk GB"
+  echo "OS:           $var_os $var_version"
+  echo "Unprivileged: $var_unprivileged"
+  echo "Tags:         $var_tags"
+  echo "------------------------------------------------------------"
+  echo
+}

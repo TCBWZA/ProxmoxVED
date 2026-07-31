@@ -99,7 +99,7 @@ fi
 write_conf
 
 cat > /usr/bin/update << 'EOF'
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/TCBWZA/ProxmoxVED/main/ct/hermes-dev.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/TCBWZA/ProxmoxVED/ct/hermes-dev.sh)"
 EOF
 chmod +x /usr/bin/update
 

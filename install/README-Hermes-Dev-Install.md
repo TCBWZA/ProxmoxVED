@@ -94,7 +94,6 @@ The installer maintains the file:
 
 
 This file stores:
-
 - Architecture  
 - Model name  
 - Install date  
@@ -102,7 +101,7 @@ This file stores:
 - Update version  
 - Gateway enabled flag  
 - Agent repository URL  
-- GPU passthrough flag  
+- GPU pass-through flag  
 
 This information is used to preserve settings and determine update behaviour.
 

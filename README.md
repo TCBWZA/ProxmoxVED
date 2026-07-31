@@ -8,14 +8,15 @@ This repository currently contains the **Hermes Dev** installer, with support fo
 
 ## Repository Structure
 
+```text
 ProxmoxVED/
-ct/
-hermes-dev.sh            # Host-side entry script (curl-installable)
-install/
-hermes-dev-install.sh    # Inside-container installer
-misc/
-build.func               # Shared helper functions (Community-Scripts style)
-
+  ct/
+    hermes-dev.sh            # Host-side entry script (curl-installable)
+  install/
+    hermes-dev-install.sh    # Inside-container installer
+  misc/
+    build.func               # Shared helper functions (Community-Scripts style)
+```
 
 - **ct/**  
   Contains host-side entry scripts.  
@@ -43,4 +44,4 @@ build.func               # Shared helper functions (Community-Scripts style)
 You can install Hermes Dev directly from this repository using:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/TCBWZA/ProxmoxVED/main/ct/hermes-dev.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/TCBWZA/ProxmoxVED/ct/hermes-dev.sh)"
